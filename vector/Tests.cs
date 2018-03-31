@@ -77,6 +77,37 @@ class Tests
             }
         }
 
+        {
+            Vector<int> test = new Vector<int>(150);
+            for (int i = 0; i < test.Size(); i++)
+                test[i] = i;
+            try
+            {
+                Vector<int> test2 = new Vector<int>(ref test);
+                if (test2.Size() != test.Size())
+                    err.Report_error("Wrong size in copied Vector");
+            }
+            catch (Exception ex)
+            {
+                err.Report_error("Unexpected exception in copy ctor tests: " + ex.Message);
+            }
+
+            try
+            {
+                Vector<int> test2 = new Vector<int>(ref test);
+                for (int i = 0; i < test2.Size(); i++)
+                {
+                    if (test2[i] != test[i])
+                        err.Report_error("Error in copy ctor tests");
+                }
+            }
+            catch (Exception)
+            {
+                err.Report_error("Unexpected exception in copy ctor tests");
+            }
+
+        }
+
         err.Print_current_state();
         Console.WriteLine("End of tests");
         Console.ReadLine();

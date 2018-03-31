@@ -14,6 +14,18 @@ class Vector<T>
         Elem = new T[count];
         _count = count;
     }
+    //copy constructor
+    public Vector(ref Vector<T> arg)
+    {
+        _count = arg.Size();
+        T[] temp = new T[_count];
+        for(int i = 0; i < _count; i++)
+            temp[i] = arg[i];
+
+        Elem = temp;
+
+        temp = null;        
+    }
 
     ~Vector()
     {
