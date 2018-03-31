@@ -34,5 +34,10 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <Compile Include="error_messenger.cs" />
+    <Compile Include="Tests.cs" />
+    <Compile Include="vector.cs" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
