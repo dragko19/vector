@@ -1,9 +1,5 @@
 ﻿using System;
-using System.IO;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 class Vector<T>
 {
@@ -54,5 +50,17 @@ class Vector<T>
             else
                 throw new IndexOutOfRangeException("Index is out of bounds in [] set operator");
         }
+    }
+
+    public void Push_back(T arg)
+    {
+        T[] temp = new T[_count + 1];
+        for (int i = 0; i < _count; i++)
+            temp[i] = Elem[i];
+
+        temp[_count] = arg;
+        _count++;
+        Elem = temp;
+        temp = null;
     }
 }

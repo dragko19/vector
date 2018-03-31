@@ -1,9 +1,6 @@
 ﻿using System;
 using System.IO;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 
 class Tests
@@ -77,6 +74,7 @@ class Tests
             }
         }
 
+        //copy ctor tests
         {
             Vector<int> test = new Vector<int>(150);
             for (int i = 0; i < test.Size(); i++)
@@ -107,9 +105,28 @@ class Tests
             }
 
         }
+        //Push_back() method tests
+        {
+            Vector<int> test = new Vector<int>(10);
+            for (int i = 0; i < test.Size(); i++)
+                test[i] = i;
 
-        err.Print_current_state();
-        Console.WriteLine("End of tests");
+            for(int i = 11; i < 20; i++)
+            {
+                try
+                {
+                    test.Push_back(i);
+                    if (test[i-1] != i)
+                        err.Report_error("Error in Push_back() method tests");
+                }
+                catch(Exception ex)
+                {
+                    err.Report_error("Unexpected exception in Push_back() method tests: " + ex.Message);
+                }
+            }
+        }
+
+        err.End_of_tests();
         Console.ReadLine();
 
     }

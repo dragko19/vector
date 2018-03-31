@@ -52,4 +52,11 @@ class Error_messenger
         }
     }
 
+    public void End_of_tests()
+    {
+        _StrWr.WriteLine("\nEnd of tests");
+        _StrWr.Flush();
+        Print_current_state();
+    }
+
 }
