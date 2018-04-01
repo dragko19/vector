@@ -24,6 +24,15 @@ class Tests
                 if (test.Size() != i)
                     err.Report_error("Error of constructor in test number: " + i);
             }
+            try
+            {
+                Vector<double> test2 = new Vector<double>(-1);
+                err.Report_error("Missed exception in default ctror tests");
+            }
+            catch(IndexOutOfRangeException)
+            {
+                //we want to catch exception
+            }
         }
 
         //[] operator tests
@@ -71,6 +80,29 @@ class Tests
                 {
                     //we want to catch exception;
                 }
+            }
+
+            Vector<int> test3 = new Vector<int>(0);
+            try
+            {
+                test3[0] = 1;
+                err.Report_error("Missed exception in [] set operator tests");
+                
+            }
+            catch (Exception)
+            {
+                //we want to catch exception
+            }
+
+            Vector<int> test4 = new Vector<int>(0);
+            try
+            {
+                int temp = test4[-1];
+                err.Report_error("Missed exception in [] get operator");
+            }
+            catch (Exception)
+            {
+                //we want to catch exception
             }
         }
 
@@ -124,6 +156,41 @@ class Tests
                     err.Report_error("Unexpected exception in Push_back() method tests: " + ex.Message);
                 }
             }
+        }
+
+        //Pop_back() method tests
+        {
+            Vector<int> test = new Vector<int>(100);
+            for(int i = 0; i < test.Size(); i++)
+            {
+                test[i] = i;
+            }
+            for (int i = test.Size() - 1; i > 0; i--)
+            {
+                try
+                {
+                    if (test.Pop_back() != i)
+                        err.Report_error("Error in Pop_back() method tests");
+                    if (test.Size() != i)
+                        err.Report_error("Error in Pop_back() method tests");
+                }
+                catch(IndexOutOfRangeException ex)
+                {
+                    err.Report_error("Unexpected exception in Pop_back() method tests: " + ex.Message);
+                }
+            }
+
+            Vector<int> test2 = new Vector<int>();
+            try
+            {
+                test2.Pop_back();
+                err.Report_error("Missed exception in Pop_back() method tests");
+            }
+            catch(IndexOutOfRangeException)
+            {
+                //we want to catch exception
+            }
+
         }
 
         err.End_of_tests();
