@@ -193,6 +193,52 @@ class Tests
 
         }
 
+        //MoveTo() tests
+        {
+            Vector<int> test = new Vector<int>(0);
+            try
+            {
+                test.MoveTo(5, 8);
+                err.Report_error("Missed exception in MoveTo method tests");
+            }
+            catch (Exception)
+            {
+                //we want to catch exception
+            }
+            for (int i = 0; i < 20; i++)
+                test.Push_back(i);
+            try
+            {
+                test.MoveTo(20, 20);
+                err.Report_error("Missed exception in MoveTo() method tests");
+            }
+            catch (IndexOutOfRangeException)
+            {
+                //we want to catch exception
+            }
+            catch (Exception ex)
+            {
+                err.Report_error("Unexpected exception in MoveTo() method tests: " + ex.Message);
+            }
+
+            int j = test.Size() - 1;
+            int temp;
+            for (int i = 0; i < test.Size(); i++, j--)
+            {
+                try
+                {
+                    temp = test[i];
+                    test.MoveTo(i, j);
+                    if (test[j] != temp)
+                        err.Report_error("Error in MoveTo() method tests");
+                }
+                catch (Exception ex)
+                {
+                    err.Report_error("Unexpected exception in MoveTo() method tests: " + ex.Message);
+                }
+            }
+        }         
+
         err.End_of_tests();
         Console.ReadLine();
 

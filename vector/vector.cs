@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 
 
 class Vector<T>
@@ -80,5 +81,35 @@ class Vector<T>
 
         Elem = temp;
         return res;
+    }
+
+    public void MoveTo(int arg_pos, int target_pos)
+    {
+        if (Size() < 2)
+            throw new Exception("There is not enough elements in Vector to move");
+        if (arg_pos >= Size() || target_pos >= Size())
+            throw new IndexOutOfRangeException("Argument's position or target position is out of range");
+
+        T[] temp = new T[Size()];
+        for (int i = target_pos; i < Size(); i++)
+            temp[i] = Elem[i];
+        Elem[target_pos] = Elem[arg_pos];
+
+        for (int i = target_pos + 1; i < Size(); i++)
+            Elem[i] = temp[i-1];
+
+        temp = null;
+    }
+
+    public override string ToString()
+    {
+        MemoryStream MStr = new MemoryStream();
+        TextWriter Wr = new StreamWriter(MStr);
+        for (int i = 0; i < Size(); i++)
+            Wr.WriteLine(Elem[i]);
+        Wr.Flush();
+        TextReader StrRd = new StreamReader(MStr);
+        MStr.Seek(0, SeekOrigin.Begin);
+        return StrRd.ReadToEnd();
     }
 }
