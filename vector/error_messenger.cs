@@ -30,19 +30,21 @@ class Error_messenger
 
     public void Print_current_state()
     {
-        StreamReader sr = new StreamReader(_MemStr);
-        Console.WriteLine("Number of errors: {0}", _Errors_count);
+        StreamReader sr = new StreamReader(_MemStr);        
         _MemStr.Seek(0, SeekOrigin.Begin);
         Console.WriteLine(sr.ReadToEnd());
+        Console.WriteLine("Total number of errors: {0}", _Errors_count);
     }
 
     public void Save_report(string path)
     {
-        _StrWr.WriteLine("Total number of errors: " + Get_error_count());
+        _StrWr.WriteLine("Total number of errors: {0}",_Errors_count);
+        _StrWr.Flush();
         _MemStr.Seek(0, SeekOrigin.Begin);
         try
         {
-            FileStream fS = new FileStream(path, FileMode.OpenOrCreate);
+            FileStream fS = new FileStream(path, FileMode.Open);
+            fS.SetLength(0);
             _MemStr.CopyTo(fS);
             fS.Flush();
         }
@@ -57,6 +59,7 @@ class Error_messenger
         _StrWr.WriteLine("\nEnd of tests");
         _StrWr.Flush();
         Print_current_state();
+        Save_report("D:\\report.txt");
     }
 
 }
